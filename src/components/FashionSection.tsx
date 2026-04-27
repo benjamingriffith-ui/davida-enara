@@ -359,7 +359,6 @@ function DraggableBag({ imgIndex, setImgIndex, onPurchase, ratio }: {
       dragTransition={{ power: 0.15, timeConstant: 220 }}
       animate={controls}
       initial={{ opacity: 0, x: -260, y: -60, rotate: -12 }}
-      whileDrag={{ scale: 1.04 }}
       onPointerDown={handlePointerDown}
       onDragStart={() => { setIsDragging(true); wasDragged.current = true }}
       onDragEnd={handleDragEnd}
@@ -374,7 +373,7 @@ function DraggableBag({ imgIndex, setImgIndex, onPurchase, ratio }: {
     >
       {/* Floating inner wrapper */}
       <motion.div
-        animate={isDragging ? { y: 0 } : { y: [0, -8, 0] }}
+        animate={{ y: [0, -8, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
         style={{
           background: 'transparent',

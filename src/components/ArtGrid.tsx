@@ -130,7 +130,7 @@ function ArtCard({
           <p style={{
             fontFamily: 'var(--font-body)',
             fontStyle: 'italic',
-            fontSize: '11.5px',
+            fontSize: '14px',
             fontWeight: 300,
             color: 'var(--soil)',
             margin: 0,

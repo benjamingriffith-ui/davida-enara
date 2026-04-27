@@ -254,6 +254,7 @@ export default function WritingSection() {
         display: 'flex',
         justifyContent: 'flex-end',
         paddingRight: 'calc(48px + 8%)',
+        overflow: 'hidden',
       }}>
         <motion.div
           ref={ref}

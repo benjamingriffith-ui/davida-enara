@@ -1,11 +1,11 @@
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState, useEffect, useLayoutEffect } from 'react'
 
 const TEXT_STYLE: React.CSSProperties = {
   fontFamily: 'var(--font-display)',
-  fontSize: '28px',
+  fontSize: '32px',
   textTransform: 'uppercase',
   letterSpacing: '0.12em',
-  fontWeight: 400,
+  fontWeight: 700,
   lineHeight: 1,
 }
 
@@ -99,6 +99,9 @@ export default function Navbar() {
   const [suffix, setSuffix] = useState('')
   const [isMobile, setIsMobile] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [enaraLS, setEnaraLS] = useState('0.18em')
+  const davidaRef = useRef<HTMLSpanElement>(null)
+  const enaraBaseRef = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768)
@@ -122,6 +125,21 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  // Compute ENARA letter-spacing so its rendered width matches DAVIDA
+  useLayoutEffect(() => {
+    const compute = () => {
+      if (!davidaRef.current || !enaraBaseRef.current) return
+      const davW = davidaRef.current.getBoundingClientRect().width
+      const enaW = enaraBaseRef.current.getBoundingClientRect().width
+      const lsPx = parseFloat(getComputedStyle(enaraBaseRef.current).letterSpacing)
+      if (!enaW || isNaN(lsPx)) return
+      setEnaraLS(`${(davW - enaW) / 5 + lsPx}px`)
+    }
+    document.fonts.ready.then(compute)
+    window.addEventListener('resize', compute)
+    return () => window.removeEventListener('resize', compute)
+  }, [isMobile])
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -148,22 +166,22 @@ export default function Navbar() {
         <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.15 }}>
           <span style={{
             fontFamily: 'var(--font-display)',
-            fontSize: isMobile ? '22px' : '34px',
+            fontSize: isMobile ? '26px' : '42px',
             letterSpacing: '0.18em',
             textTransform: 'uppercase',
-            fontWeight: 400,
+            fontWeight: 700,
             color: 'var(--soil)',
           }}>
-            Davida Enara:
+            <span ref={davidaRef}>Davida</span>{' '}<span style={{ letterSpacing: enaraLS }}>Enara</span>:
           </span>
           <span style={{
             fontFamily: 'var(--font-display)',
-            fontSize: isMobile ? '18px' : '30px',
+            fontSize: isMobile ? '21px' : '36px',
             letterSpacing: '0.18em',
             textTransform: 'uppercase',
             fontStyle: 'italic',
             fontWeight: 400,
-            color: 'var(--gold)',
+            color: '#FFF8E8',
             transition: 'opacity 0.4s ease',
             opacity: suffix ? 1 : 0,
             display: 'block',
@@ -181,6 +199,26 @@ export default function Navbar() {
             ))}
           </div>
         )}
+
+        {/* Hidden span to measure ENARA at baseline letter-spacing */}
+        <span
+          ref={enaraBaseRef}
+          aria-hidden="true"
+          style={{
+            position: 'absolute',
+            visibility: 'hidden',
+            pointerEvents: 'none',
+            userSelect: 'none',
+            fontFamily: 'var(--font-display)',
+            fontSize: isMobile ? '26px' : '42px',
+            fontWeight: 700,
+            textTransform: 'uppercase',
+            letterSpacing: '0.18em',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          Enara
+        </span>
 
         {/* Hamburger button (mobile) */}
         {isMobile && (
