@@ -382,19 +382,6 @@ export default function ArtGrid() {
           </a>
         </div>
 
-        {/* Hint text */}
-        <p style={{
-          fontFamily: 'var(--font-ui)',
-          fontSize: '10px',
-          textTransform: 'uppercase',
-          letterSpacing: '0.2em',
-          fontWeight: 300,
-          color: 'rgba(138,122,90,0.5)',
-          textAlign: 'center',
-          marginBottom: '48px',
-        }}>
-          Drag to rearrange · Click to expand
-        </p>
 
         {/* Card scatter */}
         <div style={{
