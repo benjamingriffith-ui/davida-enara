@@ -188,13 +188,18 @@ const DETAIL_TEXT = (
 )
 
 function ExpandedCard({ painting, onClose }: { painting: Painting; onClose: () => void }) {
-  // null = not yet known, false = portrait, true = landscape
   const [isLandscape, setIsLandscape] = useState<boolean | null>(null)
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
+    const handleResize = () => setIsMobile(window.innerWidth < 768)
     window.addEventListener('keydown', handleKey)
-    return () => window.removeEventListener('keydown', handleKey)
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('keydown', handleKey)
+      window.removeEventListener('resize', handleResize)
+    }
   }, [onClose])
 
   const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
@@ -202,6 +207,83 @@ function ExpandedCard({ painting, onClose }: { painting: Painting; onClose: () =
     setIsLandscape(w > h)
   }
 
+  // On mobile: always full-screen scrolling column
+  if (isMobile) {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.25 }}
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 200,
+          background: 'var(--note-bg)',
+          overflowY: 'auto',
+        }}
+      >
+        <button
+          onClick={onClose}
+          aria-label="Close"
+          style={{
+            position: 'fixed',
+            top: '20px',
+            right: '24px',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            fontFamily: 'var(--font-ui)',
+            fontSize: '11px',
+            textTransform: 'uppercase',
+            letterSpacing: '0.18em',
+            fontWeight: 300,
+            color: 'var(--soil)',
+            opacity: 0.5,
+            zIndex: 201,
+          }}
+        >
+          ← Back
+        </button>
+
+        <div style={{ background: '#e4ddd0' }}>
+          <img
+            src={src(painting.file)}
+            alt={painting.title}
+            onLoad={handleImageLoad}
+            style={{ width: '100%', height: 'auto', display: 'block' }}
+          />
+        </div>
+
+        <div style={{ padding: '36px 28px 60px' }}>
+          <p style={{
+            fontFamily: 'var(--font-ui)',
+            fontSize: '10px',
+            textTransform: 'uppercase',
+            letterSpacing: '0.22em',
+            fontWeight: 300,
+            color: 'var(--gold)',
+            margin: '0 0 14px',
+          }}>
+            {painting.year} · {painting.medium}
+          </p>
+          <h2 style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: '22px',
+            fontWeight: 400,
+            lineHeight: 1.25,
+            color: 'var(--soil)',
+            margin: '0 0 24px',
+          }}>
+            {painting.title}
+          </h2>
+          {DETAIL_TEXT}
+        </div>
+      </motion.div>
+    )
+  }
+
+  // Desktop: existing side-by-side / stacked layout
   const closeBtn = (
     <button
       onClick={onClose}
@@ -280,8 +362,6 @@ function ExpandedCard({ painting, onClose }: { painting: Painting; onClose: () =
         style={{
           background: 'var(--note-bg)',
           display: 'flex',
-          /* landscape → column (image top, text below)
-             portrait  → row   (image left, text right) */
           flexDirection: isLandscape ? 'column' : 'row',
           alignItems: 'flex-start',
           width: '100%',
@@ -291,9 +371,7 @@ function ExpandedCard({ painting, onClose }: { painting: Painting; onClose: () =
           boxShadow: '0 40px 100px rgba(0,0,0,0.5)',
         }}
       >
-        {/* ── Image — never cropped ── */}
         {isLandscape ? (
-          /* Landscape: full width, natural height */
           <div style={{ width: '100%', background: '#e4ddd0', flexShrink: 0 }}>
             <img
               src={src(painting.file)}
@@ -303,7 +381,6 @@ function ExpandedCard({ painting, onClose }: { painting: Painting; onClose: () =
             />
           </div>
         ) : (
-          /* Portrait: fixed-width left panel, image at natural ratio */
           <div style={{
             width: '40%',
             flexShrink: 0,
@@ -323,7 +400,6 @@ function ExpandedCard({ painting, onClose }: { painting: Painting; onClose: () =
           </div>
         )}
 
-        {/* ── Details ── */}
         <div style={{
           flex: 1,
           padding: '44px 40px 40px',

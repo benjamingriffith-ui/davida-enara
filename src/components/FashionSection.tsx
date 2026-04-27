@@ -19,17 +19,188 @@ function BagGif({ fps = 6 }: { fps?: number }) {
   )
 }
 
+const PURCHASE_DETAILS = (
+  <>
+    <p style={{
+      fontFamily: 'var(--font-ui)',
+      fontSize: '10px',
+      textTransform: 'uppercase',
+      letterSpacing: '0.22em',
+      fontWeight: 300,
+      color: 'var(--gold)',
+      margin: '0 0 16px',
+    }}>
+      Wearable Art · Limited Edition
+    </p>
+    <h2 style={{
+      fontFamily: 'var(--font-display)',
+      fontSize: '26px',
+      fontWeight: 400,
+      lineHeight: 1.2,
+      color: 'var(--soil)',
+      margin: '0 0 8px',
+    }}>
+      The [Bag Name] Tote
+    </h2>
+    <p style={{
+      fontFamily: 'var(--font-display)',
+      fontStyle: 'italic',
+      fontSize: '20px',
+      fontWeight: 400,
+      color: 'var(--gold)',
+      margin: '0 0 28px',
+    }}>
+      $[Price]
+    </p>
+    <p style={{
+      fontFamily: 'var(--font-body)',
+      fontSize: '15px',
+      fontWeight: 300,
+      lineHeight: 1.85,
+      color: 'rgba(42,34,24,0.72)',
+      margin: '0 0 16px',
+    }}>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque varius
+      nulla vel tortor tincidunt, eu suscipit nisi varius. Sed euismod nibh a
+      erat suscipit, in lacinia lorem auctor.
+    </p>
+    <p style={{
+      fontFamily: 'var(--font-body)',
+      fontSize: '15px',
+      fontWeight: 300,
+      lineHeight: 1.85,
+      color: 'rgba(42,34,24,0.72)',
+      margin: '0 0 32px',
+    }}>
+      Hand-dyed natural canvas · Adjustable strap · Interior zip pocket ·
+      Ships within 2–3 weeks.
+    </p>
+    <div style={{ display: 'flex', gap: '10px', marginBottom: '32px' }}>
+      {['Indigo'].map((color) => (
+        <button key={color} style={{
+          fontFamily: 'var(--font-ui)',
+          fontSize: '10px',
+          textTransform: 'uppercase',
+          letterSpacing: '0.14em',
+          fontWeight: 300,
+          color: 'var(--soil)',
+          background: 'none',
+          border: '1px solid rgba(42,34,24,0.25)',
+          padding: '7px 14px',
+          cursor: 'pointer',
+        }}>
+          {color}
+        </button>
+      ))}
+    </div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      <button style={{
+        fontFamily: 'var(--font-ui)',
+        fontSize: '11px',
+        textTransform: 'uppercase',
+        letterSpacing: '0.2em',
+        fontWeight: 300,
+        color: 'var(--note-bg)',
+        background: 'var(--soil)',
+        border: 'none',
+        padding: '16px 24px',
+        cursor: 'pointer',
+        width: '100%',
+      }}>
+        Add to Cart
+      </button>
+      <button style={{
+        fontFamily: 'var(--font-ui)',
+        fontSize: '11px',
+        textTransform: 'uppercase',
+        letterSpacing: '0.2em',
+        fontWeight: 300,
+        color: 'var(--soil)',
+        background: 'none',
+        border: '1px solid rgba(42,34,24,0.3)',
+        padding: '14px 24px',
+        cursor: 'pointer',
+        width: '100%',
+      }}>
+        Buy Now
+      </button>
+    </div>
+  </>
+)
+
 function PurchaseModal({ onClose }: { onClose: () => void }) {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
+    const handleResize = () => setIsMobile(window.innerWidth < 768)
     window.addEventListener('keydown', handleKey)
+    window.addEventListener('resize', handleResize)
     document.body.style.overflow = 'hidden'
     return () => {
       window.removeEventListener('keydown', handleKey)
+      window.removeEventListener('resize', handleResize)
       document.body.style.overflow = ''
     }
   }, [onClose])
 
+  // Mobile: full-screen scrolling column
+  if (isMobile) {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.25 }}
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 200,
+          background: 'var(--note-bg)',
+          overflowY: 'auto',
+        }}
+      >
+        <button
+          onClick={onClose}
+          aria-label="Close"
+          style={{
+            position: 'fixed',
+            top: '20px',
+            right: '24px',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            fontFamily: 'var(--font-ui)',
+            fontSize: '11px',
+            textTransform: 'uppercase',
+            letterSpacing: '0.18em',
+            fontWeight: 300,
+            color: 'var(--soil)',
+            opacity: 0.5,
+            zIndex: 201,
+          }}
+        >
+          ← Back
+        </button>
+
+        <div style={{
+          background: '#e4ddd0',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '60px 32px 32px',
+        }}>
+          <BagGif fps={3} />
+        </div>
+
+        <div style={{ padding: '36px 28px 60px' }}>
+          {PURCHASE_DETAILS}
+        </div>
+      </motion.div>
+    )
+  }
+
+  // Desktop: side-by-side
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -67,7 +238,6 @@ function PurchaseModal({ onClose }: { onClose: () => void }) {
           boxShadow: '0 40px 100px rgba(0,0,0,0.5)',
         }}
       >
-        {/* Animated bag preview */}
         <div style={{
           width: '45%',
           flexShrink: 0,
@@ -81,7 +251,6 @@ function PurchaseModal({ onClose }: { onClose: () => void }) {
           <BagGif fps={3} />
         </div>
 
-        {/* Purchase details */}
         <div style={{
           flex: 1,
           padding: '44px 40px 40px',
@@ -91,7 +260,6 @@ function PurchaseModal({ onClose }: { onClose: () => void }) {
           flexDirection: 'column',
           justifyContent: 'space-between',
         }}>
-          {/* Close */}
           <button
             onClick={onClose}
             aria-label="Close"
@@ -111,128 +279,7 @@ function PurchaseModal({ onClose }: { onClose: () => void }) {
           >
             ×
           </button>
-
-          <div>
-            <p style={{
-              fontFamily: 'var(--font-ui)',
-              fontSize: '10px',
-              textTransform: 'uppercase',
-              letterSpacing: '0.22em',
-              fontWeight: 300,
-              color: 'var(--gold)',
-              margin: '0 0 16px',
-            }}>
-              Wearable Art · Limited Edition
-            </p>
-
-            <h2 style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: '26px',
-              fontWeight: 400,
-              lineHeight: 1.2,
-              color: 'var(--soil)',
-              margin: '0 0 8px',
-            }}>
-              The [Bag Name] Tote
-            </h2>
-
-            <p style={{
-              fontFamily: 'var(--font-display)',
-              fontStyle: 'italic',
-              fontSize: '20px',
-              fontWeight: 400,
-              color: 'var(--gold)',
-              margin: '0 0 28px',
-            }}>
-              $[Price]
-            </p>
-
-            <p style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: '15px',
-              fontWeight: 300,
-              lineHeight: 1.85,
-              color: 'rgba(42,34,24,0.72)',
-              margin: '0 0 16px',
-            }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque varius
-              nulla vel tortor tincidunt, eu suscipit nisi varius. Sed euismod nibh a
-              erat suscipit, in lacinia lorem auctor.
-            </p>
-
-            <p style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: '15px',
-              fontWeight: 300,
-              lineHeight: 1.85,
-              color: 'rgba(42,34,24,0.72)',
-              margin: '0 0 32px',
-            }}>
-              Hand-dyed natural canvas · Adjustable strap · Interior zip pocket ·
-              Ships within 2–3 weeks.
-            </p>
-
-            {/* Size / option selector placeholder */}
-            <div style={{ display: 'flex', gap: '10px', marginBottom: '32px' }}>
-              {['Indigo'].map((color) => (
-                <button
-                  key={color}
-                  style={{
-                    fontFamily: 'var(--font-ui)',
-                    fontSize: '10px',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.14em',
-                    fontWeight: 300,
-                    color: 'var(--soil)',
-                    background: 'none',
-                    border: '1px solid rgba(42,34,24,0.25)',
-                    padding: '7px 14px',
-                    cursor: 'pointer',
-                  }}
-                >
-                  {color}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Buy button */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            <button
-              style={{
-                fontFamily: 'var(--font-ui)',
-                fontSize: '11px',
-                textTransform: 'uppercase',
-                letterSpacing: '0.2em',
-                fontWeight: 300,
-                color: 'var(--note-bg)',
-                background: 'var(--soil)',
-                border: 'none',
-                padding: '16px 24px',
-                cursor: 'pointer',
-                width: '100%',
-              }}
-            >
-              Add to Cart
-            </button>
-            <button
-              style={{
-                fontFamily: 'var(--font-ui)',
-                fontSize: '11px',
-                textTransform: 'uppercase',
-                letterSpacing: '0.2em',
-                fontWeight: 300,
-                color: 'var(--soil)',
-                background: 'none',
-                border: '1px solid rgba(42,34,24,0.3)',
-                padding: '14px 24px',
-                cursor: 'pointer',
-                width: '100%',
-              }}
-            >
-              Buy Now
-            </button>
-          </div>
+          {PURCHASE_DETAILS}
         </div>
       </motion.div>
     </motion.div>
