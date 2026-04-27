@@ -363,69 +363,17 @@ export default function FashionSection() {
 
   return (
     <>
+      {/* Left-of-center placement */}
       <section id="fashion" style={{
         background: 'transparent',
-        padding: '100px 48px',
-        display: 'flex',
-        alignItems: 'flex-start',
-        gap: '64px',
+        padding: '220px 48px 300px',
+        paddingLeft: 'calc(48px + 8%)',
       }}>
-        {/* Draggable bag */}
         <DraggableBag
           imgIndex={bagIndex}
           setImgIndex={setBagIndex}
           onPurchase={() => setPurchaseOpen(true)}
         />
-
-        {/* Right text */}
-        <div style={{ flex: '1', maxWidth: '420px', paddingTop: '24px' }}>
-          <p style={{
-            fontFamily: 'var(--font-ui)',
-            fontSize: '10px',
-            textTransform: 'uppercase',
-            letterSpacing: '0.2em',
-            fontWeight: 300,
-            color: 'var(--gold)',
-            margin: '0 0 20px',
-          }}>
-            Fashion &amp; Wearable Art
-          </p>
-          <h2 style={{
-            fontFamily: 'var(--font-body)',
-            fontStyle: 'italic',
-            fontSize: '40px',
-            fontWeight: 400,
-            lineHeight: 1.1,
-            color: 'var(--soil)',
-            margin: '0 0 24px',
-          }}>
-            Wear the work.
-          </h2>
-          <p style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: '18px',
-            fontWeight: 300,
-            lineHeight: 1.75,
-            color: 'var(--soil)',
-            marginBottom: '32px',
-          }}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-          <a href="#" style={{
-            fontFamily: 'var(--font-ui)',
-            fontSize: '11px',
-            textTransform: 'uppercase',
-            letterSpacing: '0.18em',
-            fontWeight: 300,
-            color: 'var(--gold)',
-            textDecoration: 'none',
-            borderBottom: '1px solid var(--gold)',
-            paddingBottom: '1px',
-          }}>
-            Browse the collection
-          </a>
-        </div>
       </section>
 
       <AnimatePresence>

@@ -109,7 +109,7 @@ function ArtCard({
         animate={isDragging ? { y: 0 } : { y: [0, -7, 0] }}
         transition={{ duration: 3.5 + index * 0.5, repeat: Infinity, ease: 'easeInOut' }}
         style={{
-          background: 'var(--note-bg)',
+          background: 'url(/canvas-bg.jpg) center / cover',
           padding: '10px 10px 32px',
           boxShadow: isDragging
             ? '0 24px 48px rgba(0,0,0,0.32)'
@@ -350,37 +350,7 @@ export default function ArtGrid() {
 
   return (
     <>
-      <section id="art" style={{ background: 'transparent', padding: '80px 48px 120px' }}>
-        {/* Section header */}
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'baseline',
-          marginBottom: '60px',
-        }}>
-          <h2 style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: '36px',
-            fontWeight: 400,
-            margin: 0,
-            color: 'var(--soil)',
-          }}>
-            Visual <em style={{ color: 'var(--gold)', fontStyle: 'italic' }}>Art</em>
-          </h2>
-          <a href="#" style={{
-            fontFamily: 'var(--font-ui)',
-            fontSize: '11px',
-            textTransform: 'uppercase',
-            letterSpacing: '0.18em',
-            fontWeight: 300,
-            color: 'var(--gold)',
-            textDecoration: 'none',
-            borderBottom: '1px solid var(--gold)',
-            paddingBottom: '1px',
-          }}>
-            View all works
-          </a>
-        </div>
+      <section id="art" style={{ background: 'transparent', padding: '220px 48px 280px' }}>
 
 
         {/* Card scatter */}

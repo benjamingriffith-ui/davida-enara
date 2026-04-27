@@ -10,6 +10,7 @@
   --font-display: 'Playfair Display', serif;
   --font-body: 'Crimson Pro', serif;
   --font-ui: 'DM Sans', sans-serif;
+  --font-script: 'La Belle Aurore', cursive;
 }
 
 *, *::before, *::after {

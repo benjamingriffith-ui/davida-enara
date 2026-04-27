@@ -1,0 +1,138 @@
+export const bus40 = {
+  title: 'Moments Before Bus 40',
+  subtitle: "God's Voice as I've Come to Know it",
+  date: 'January 29, 2023',
+  coverImage: 'bus40.png',
+  preview: 'I approached the city of brotherly love with little expectation and emerged with a piggy bank of relationships, experiences and memories that I will always treasure...',
+
+  intro: [
+    `I approached the city of brotherly love with little expectation and emerged with a piggy bank of relationships, experiences and memories that I will always treasure. As the end of my grad program came around, marking my last few days in Philadelphia, one of my dear friends asked me what should have been a simple question - what was your favourite memory from your time here? Although the merely ten months I spent in Philly were disproportionately filled with deep and lovely memories, I came up short.`,
+
+    `I could have highlighted the fluency of first-time meetings with people, when our true selves emerged and intermingled with such quickness and ease, that we were mutually certain we'd be friends for life; Or I could have recounted the exhilarating comfort of finding answers to questions I barely whispered; Or reckless generosity, involving the giving of more than just material things, that I enjoyed and learned from; Or dance parties to break up a study session. Or the sizzling taste of an epiphany on a cool night; Or uncharacteristically turning off my camera during a Zoom class and heading to eat gourmet pizza in a park with friends under the stars; Or an iced, decaf, oat milk latte, half sweet with a pump of vanilla at my favourite cafe, as I settled into the prized seat I'd secured, by strategically arriving just after dawn. However, these floating memories evenly bobbed up and down in my head, none rising with finality above the rest. Although dissatisfied with my inability to answer conclusively, I responded - there were too many, it's hard to choose.`,
+
+    `As moving day drew closer, I was determined to say a proper goodbye to all my friends and had by that point covered considerable ground. Still, there were a few people I missed, but I eventually came to terms with it. There would be time for reunions.`,
+
+    `On my second to last day in Philly, I was strolling with a friend, looking to find lunch. We were somewhere around the 37th and Market street intersection, when we ran into one of such friends I had already accepted not getting to bid a proper farewell to. That unexpected opportunity to enjoy one more cheeky chat made my heart leap.`,
+
+    `The next day, I was on my way to catch a bus, which I rarely did (walking was part of my go to strategy for ~making a place my space~). En route, I ran into another friend who I had also wished I'd gotten to say a proper goodbye to. We caught up briefly and giggled and hugged and somewhere in that swirl of delight emerged a response to that question I had quietly been dismayed I couldn't answer. With finality and instance, I could now identify my favourite Philly memory. But, it wasn't just one moment, but rather several small moments, just like these 'chance' rendezvous, that I experienced during my time there. Moments that showed me how God dotes on the little details that make my heart flutter.`,
+
+    `So, as I stood waiting for bus 40, I excitedly retrieved my phone to finally give my friend an answer to her question. The letters tumbled onto my screen - …moments like this!!! - I typed. I initially labelled such moments as 'serendipitous', for lack of a better word. However, I was unsatisfied with that designation, because it leaves God out of the picture - what is intentional, and eternal, 'serendipity' dilutes into a happy accident. I think 'divine' is much closer to the truth.`,
+
+    `Ultimately, when I think about such divine moments, two things are clear: that God was speaking, and it felt like love.`,
+
+    `The voice of God is something I've been trying to put into words for some time now as I've come to better recognize it. And what moments like those before bus 40 revealed, is this:`,
+  ],
+
+  // Each inner array is one stanza; each string is one line.
+  poem: [
+    [
+      'The voice of God,',
+      "As I've come to know it,",
+      'Is seldom heard,',
+      'But more so',
+      'Felt, tasted and seen.',
+    ],
+    [
+      'More precisely,',
+      'The voice of God',
+      'Is an inaudible whisper,',
+      'Tenderly slipping into your heart',
+      'With a quiet confidence,',
+      'Not easy to ignore like the loud and proud,',
+      'But gentle and low,',
+      'Just enough to require a leaning in,',
+      'Aware that what it holds,',
+      'Is too precious to miss',
+    ],
+    [
+      'The voice of God',
+      'Is as subtle and affecting as a wink,',
+      'More intimate and personal',
+      'Than you could ever think,',
+      'Today, it is the unexpected chance to say goodbye to a dear friend,',
+      'Tomorrow, it is the strikingly specific',
+      'Kindness of a stranger,',
+      'Next week it is a pair of curtains',
+      'Delivered ten months late,',
+      'And initially meant for your dorm room,',
+      'But turn out to be a perfect fit,',
+      'For the rather tall windows',
+      'In your very first apartment',
+    ],
+    [
+      'The voice of God',
+      'Is the small goodness',
+      'That others might dismiss as chance,',
+      'But you just know,',
+      'Is better thought-out than that,',
+      'Because it is the voice of a friend,',
+      'The nuances and undertones,',
+      "Of which you've become familiar,",
+      'With time in their presence spent',
+    ],
+    [
+      'The voice of God is tender,',
+      'Yes,',
+      "But I wouldn't conflate",
+      "It's subtlety with placidity,",
+      'No,',
+      'The voice of God',
+      'Is the very force that disrupts the inertia of your merry little pace,',
+      'Leaving you unable to remain stagnant in its wake,',
+      'And when you surrender',
+      'To the direction where it sweeps you,',
+      "You'll walk down streets you've walked countless times,",
+      'But suddenly, the trees that line them will appear transformed,',
+      'Like they clap their hands with outstretched branches,',
+      'And no one will be able to convince you',
+      'That they are doing otherwise',
+    ],
+    [
+      'When God speaks, and you move,',
+      "It feels as though all the world's splendour,",
+      'Has been stored up just for you,',
+      'Like all of creation is a symphony',
+      'Composed to your taste,',
+      'And you will find yourself dancing to the sweet Melody of singing mountains,',
+      'That not long ago were covered in a haze',
+    ],
+    [
+      'The voice of God,',
+      'Is ever present and clear,',
+      'And can thus easily go unnoticed,',
+      'Like the conventional beauty',
+      'Of a sun, that never misses a dawn',
+    ],
+    [
+      'Thankfully however,',
+      'The voice of God is patient,',
+      'Returning over and over,',
+      "If you'll allow it,",
+      'Offering confirmation upon confirmation,',
+      'Changing forms and heights and shapes,',
+      'To catch your darting gaze',
+    ],
+    [
+      'And when finally you lock eyes with it,',
+      'You will so clearly see,',
+      'The voice of God is vivid and lasting,',
+      'A most sure impression,',
+      'Slipping into your mind in an instant,',
+      'Yet settling like the longest standing truth',
+    ],
+    [
+      'The voice of God',
+      'Is alive with weighted words,',
+      "But theirs is not the kind of heaviness",
+      'That is burdensome, yet lacking purpose,',
+      'But, more like the weight of pregnancy,',
+      'That holds the promise of birth,',
+      "And God's words always deliver",
+      'Something eternal',
+    ],
+  ],
+
+  outro: `So, as bus 40 arrived and I got on for a ride, suddenly where I got off mattered not. I had tasted, felt and seen a God who sees me. And in that moment, it felt more than enough, to simply get to tell it, from a mountain top.`,
+
+  author: 'Davida Enara',
+}

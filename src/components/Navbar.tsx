@@ -93,7 +93,7 @@ const SECTIONS = [
   { id: 'fashion', subtitle: 'Designer' },
 ]
 
-const NAV_LINKS = ['Art', 'Fashion', 'Poetry', 'Shop', 'About']
+const NAV_LINKS = ['Art', 'Poetry', 'Fashion', 'Shop', 'About']
 
 export default function Navbar() {
   const [suffix, setSuffix] = useState('')

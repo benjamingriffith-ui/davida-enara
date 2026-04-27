@@ -1,13 +1,9 @@
 import { useEffect } from 'react'
 import './index.css'
 import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import Marquee from './components/Marquee'
 import ArtGrid from './components/ArtGrid'
-import PoetrySection from './components/PoetrySection'
 import FashionSection from './components/FashionSection'
-import HandwrittenNote from './components/HandwrittenNote'
-import AboutStrip from './components/AboutStrip'
+import WritingSection from './components/WritingSection'
 import Footer from './components/Footer'
 
 export default function App() {
@@ -26,13 +22,9 @@ export default function App() {
     <>
       <div className="grain" />
       <Navbar />
-      <Hero />
-      <Marquee />
       <ArtGrid />
-      <PoetrySection />
+      <WritingSection />
       <FashionSection />
-      <HandwrittenNote />
-      <AboutStrip />
       <Footer />
     </>
   )
