@@ -91,6 +91,7 @@ const SECTIONS = [
   { id: 'art',     subtitle: 'Painter'  },
   { id: 'poetry',  subtitle: 'Poet'     },
   { id: 'fashion', subtitle: 'Designer' },
+  { id: 'about',   subtitle: 'Artist'   },
 ]
 
 const NAV_LINKS = ['Art', 'Poetry', 'Fashion', 'Shop', 'About']
@@ -112,7 +113,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const mid = window.innerHeight / 2
+      const mid = window.innerHeight * 0.8
       let current = ''
       for (const { id, subtitle } of SECTIONS) {
         const el = document.getElementById(id)

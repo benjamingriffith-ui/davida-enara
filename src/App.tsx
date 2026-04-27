@@ -4,6 +4,7 @@ import Navbar from './components/Navbar'
 import ArtGrid from './components/ArtGrid'
 import FashionSection from './components/FashionSection'
 import WritingSection from './components/WritingSection'
+import AboutSection from './components/AboutSection'
 import Footer from './components/Footer'
 
 export default function App() {
@@ -25,6 +26,7 @@ export default function App() {
       <ArtGrid />
       <WritingSection />
       <FashionSection />
+      <AboutSection />
       <Footer />
     </>
   )
