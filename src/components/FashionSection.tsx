@@ -3,19 +3,21 @@ import { motion, AnimatePresence, useAnimation, useInView, type PanInfo } from '
 
 const BAGS = ['/bag1.png', '/bag2.png', '/bag3.png', '/bag4.png']
 
-// Cycles through bag images like a gif
-function BagGif({ fps = 6 }: { fps?: number }) {
+// Cycles through bag images like a gif, locked to bag1's aspect ratio
+function BagGif({ fps = 6, ratio }: { fps?: number; ratio: string }) {
   const [frame, setFrame] = useState(0)
   useEffect(() => {
     const id = setInterval(() => setFrame(f => (f + 1) % BAGS.length), 1000 / fps)
     return () => clearInterval(id)
   }, [fps])
   return (
-    <img
-      src={BAGS[frame]}
-      alt="Bag preview"
-      style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
-    />
+    <div style={{ width: '100%', aspectRatio: ratio }}>
+      <img
+        src={BAGS[frame]}
+        alt="Bag preview"
+        style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
+      />
+    </div>
   )
 }
 
@@ -128,7 +130,7 @@ const PURCHASE_DETAILS = (
   </>
 )
 
-function PurchaseModal({ onClose }: { onClose: () => void }) {
+function PurchaseModal({ onClose, ratio }: { onClose: () => void; ratio: string }) {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
 
   useEffect(() => {
@@ -190,7 +192,7 @@ function PurchaseModal({ onClose }: { onClose: () => void }) {
           justifyContent: 'center',
           padding: '60px 32px 32px',
         }}>
-          <BagGif fps={3} />
+          <BagGif fps={3} ratio={ratio} />
         </div>
 
         <div style={{ padding: '36px 28px 60px' }}>
@@ -248,7 +250,7 @@ function PurchaseModal({ onClose }: { onClose: () => void }) {
           padding: '24px',
           boxSizing: 'border-box',
         }}>
-          <BagGif fps={3} />
+          <BagGif fps={3} ratio={ratio} />
         </div>
 
         <div style={{
@@ -286,10 +288,11 @@ function PurchaseModal({ onClose }: { onClose: () => void }) {
   )
 }
 
-function DraggableBag({ imgIndex, setImgIndex, onPurchase }: {
+function DraggableBag({ imgIndex, setImgIndex, onPurchase, ratio }: {
   imgIndex: number
   setImgIndex: (i: number) => void
   onPurchase: () => void
+  ratio: string
 }) {
   const ref = useRef<HTMLDivElement>(null)
   const controls = useAnimation()
@@ -380,19 +383,22 @@ function DraggableBag({ imgIndex, setImgIndex, onPurchase }: {
           position: 'relative',
         }}
       >
-        <AnimatePresence mode="wait">
-          <motion.img
-            key={imgIndex}
-            src={BAGS[imgIndex]}
-            alt={`Bag view ${imgIndex + 1}`}
-            draggable={false}
-            initial={{ opacity: 1 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 1 }}
-            transition={{ duration: 0 }}
-            style={{ width: '100%', height: 'auto', display: 'block' }}
-          />
-        </AnimatePresence>
+        {/* Fixed aspect ratio container locks to bag1's size */}
+        <div style={{ width: '100%', aspectRatio: ratio }}>
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={imgIndex}
+              src={BAGS[imgIndex]}
+              alt={`Bag view ${imgIndex + 1}`}
+              draggable={false}
+              initial={{ opacity: 1 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 1 }}
+              transition={{ duration: 0 }}
+              style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
+            />
+          </AnimatePresence>
+        </div>
 
       </motion.div>
     </motion.div>
@@ -402,6 +408,14 @@ function DraggableBag({ imgIndex, setImgIndex, onPurchase }: {
 export default function FashionSection() {
   const [purchaseOpen, setPurchaseOpen] = useState(false)
   const [bagIndex, setBagIndex] = useState(0)
+  // Detect bag1's aspect ratio once; all bag images rendered inside this ratio
+  const [ratio, setRatio] = useState('1 / 1')
+
+  useEffect(() => {
+    const img = new Image()
+    img.onload = () => setRatio(`${img.naturalWidth} / ${img.naturalHeight}`)
+    img.src = BAGS[0]
+  }, [])
 
   const handleClose = () => {
     setPurchaseOpen(false)
@@ -420,12 +434,13 @@ export default function FashionSection() {
           imgIndex={bagIndex}
           setImgIndex={setBagIndex}
           onPurchase={() => setPurchaseOpen(true)}
+          ratio={ratio}
         />
       </section>
 
       <AnimatePresence>
         {purchaseOpen && (
-          <PurchaseModal onClose={handleClose} />
+          <PurchaseModal onClose={handleClose} ratio={ratio} />
         )}
       </AnimatePresence>
     </>
